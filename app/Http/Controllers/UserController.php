@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -11,7 +17,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view("user.index");
+        $users = User::all();
+        return view("user.index",compact('users'));
     }
 
     /**
@@ -19,7 +26,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view("user.create");
+        $roles = Role::all();
+        $departments=Department::all();
+        return view("user.create",compact('roles','departments'));
     }
 
     /**
@@ -27,7 +36,28 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        return "store";
+
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'department' => ['required', 'string', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'roles_name' => 'required'
+        ]);
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        $user =  User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'department_id' => $request->department,
+            'password' => Hash::make($request->password),
+            'roles_name'=>json_encode([$request->roles_name]),
+        ]);
+        $user->assignRole($request->input('roles_name'));
+        session()->flash('Add', 'User has been added successfully ');
+        return redirect()->back();
     }
 
     /**
@@ -35,7 +65,8 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        return view("user.show");
+        $user = User::find($id);
+        return view("user.show",compact('user'));
     }
 
     /**
@@ -43,7 +74,11 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        return view("user.edit");
+        $user = User::find($id);
+        $roles = Role::all();
+        $departments=Department::all();
+//        return $departments;
+        return view("user.edit",compact('user','roles','departments'));
     }
 
     /**
@@ -51,7 +86,21 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return "update";
+
+
+        $user = User::findOrFail($id);
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'department_id'=>$request->department,
+            'roles_name'=>json_encode([$request->roles_name]),
+            'password' => Hash::make($request->password),
+
+    ]);
+        DB::table('model_has_roles')->where('model_id',$id)->delete();
+        $user->assignRole($request->input('roles_name'));
+        session()->flash('Update', 'User has been updated successfully ');
+        return redirect()->back();
     }
 
     /**
@@ -59,6 +108,15 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        return "destroy";
+        User::find($id)->delete();
+
+        return redirect('/user')
+            ->with('delete','User deleted successfully');
+    }
+
+    public function test()
+    {
+        $dept = User::find(1)->department;
+        return $dept;
     }
 }

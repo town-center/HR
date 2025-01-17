@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\FormType;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class FormTypeController extends Controller
@@ -11,7 +12,8 @@ class FormTypeController extends Controller
      */
     public function index()
     {
-        return view("form-type.index");
+        $formTypes = FormType::all();
+        return view("form-type.index",compact('formTypes'));
     }
 
     /**
@@ -27,7 +29,18 @@ class FormTypeController extends Controller
      */
     public function store(Request $request)
     {
-        return "store";
+        $validator = Validator::make($request->all(), [
+            'formType_name' => ['required', 'string', 'max:255'],
+        ]);
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+        FormType::create([
+            'name' => $request->formType_name,
+        ]);
+        session()->flash('Add', 'Form Type ' . $request->formType_name .' has been added successfully ');
+        return redirect()->back();
     }
 
     /**
@@ -35,7 +48,8 @@ class FormTypeController extends Controller
      */
     public function show(string $id)
     {
-        return view("form-type.show");
+        $formType = FormType::find($id);
+        return view("form-type.show",compact('formType'));
     }
 
     /**
@@ -43,7 +57,8 @@ class FormTypeController extends Controller
      */
     public function edit(string $id)
     {
-        return view("form-type.edit");
+        $formType =  FormType::find($id);
+        return view("form-type.edit",compact('formType'));
     }
 
     /**
@@ -51,7 +66,12 @@ class FormTypeController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return "update";
+        $formType = FormType::findOrFail($id);
+        $formType->update([
+            'name' => $request->formType_name,
+    ]);
+        session()->flash('Update', 'Form Type has been updated successfully ');
+        return redirect()->back();
     }
 
     /**
@@ -59,6 +79,9 @@ class FormTypeController extends Controller
      */
     public function destroy(string $id)
     {
-        return "destroy";
+        FormType::find($id)->delete();
+
+        return redirect('/form-type')
+            ->with('delete','Form Type deleted successfully');
     }
 }

@@ -93,8 +93,15 @@ class DepartmentController extends Controller
     {
         Department::find($id)->delete();
 
-        return redirect('/departments')
-            ->with('delete','User deleted successfully');
+        return redirect('/department')
+            ->with('delete','Department deleted successfully');
 
+    }
+
+    public function test()
+    {
+        //return "test";
+       $user = Department::find(2)->users;
+       return $user;
     }
 }

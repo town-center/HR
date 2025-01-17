@@ -1,28 +1,40 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
+@extends('layouts.app')
 
-<div class="alert alert-success " role="alert">
-    <strong>{{ session()->get('Add') }}</strong>
-</div>
-create department
-    <form action="/departments" method="post">
-        @csrf
+@section('content')
 
-            <div class="form-group">
-                <label for="department_name">Name</label>
-                <input type="text" class="form-control" id="department_name" name="department_name" aria-describedby="Department" placeholder="Department Name">
+    @if (session('Add'))
+        <div class="alert alert-success " role="alert">
+            <strong>{{ session()->get('Add') }}</strong>
+        </div>
+    @endif
+    
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <div>{{$error}}</div>
+        @endforeach
+    @endif
+
+    create department
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="row-cols-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="/department" method="post">
+                            @csrf
+
+                            <div class="form-group">
+                                <label for="department_name">Name</label>
+                                <input type="text" class="form-control" id="department_name" name="department_name"
+                                       aria-describedby="Department" placeholder="Department Name">
+                            </div><br>
+                            <button type="submit" class="btn btn-primary">Save</button>
+
+
+                        </form>
+
+                    </div>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Save</button>
-
-
-    </form>
-</body>
-</html>
+        </div>
+@endsection

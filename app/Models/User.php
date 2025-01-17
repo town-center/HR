@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class User extends Authenticatable implements JWTSubject
 {
@@ -18,11 +19,7 @@ class User extends Authenticatable implements JWTSubject
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -65,5 +62,31 @@ class User extends Authenticatable implements JWTSubject
     public function getJWTCustomClaims()
     {
         return [];
+    }
+
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(Department::class);
+    }
+
+
+    public function recommendations()
+    {
+        return $this->hasMany(Recommendation::class,'user_id');
+    }
+
+    public function relatives()
+    {
+        return $this->hasMany(Relatives::class,'user_id');
+    }
+
+    public function basicis()
+    {
+        return $this->hasMany(Basic::class,'user_id');
+    }
+
+    public function advanceds()
+    {
+        return $this->hasMany(Advanced::class,'user_id');
     }
 }

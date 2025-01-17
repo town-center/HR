@@ -1,18 +1,42 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-</head>
-<body>
-create form type
-<form action="/form-type" method="post">
-    @csrf
-    <button type="submit" >Store</button>
+@extends('layouts.app')
 
-</form>
-</body>
-</html>
+@section('content')
+
+    @if (session('Add'))
+        <div class="alert alert-success " role="alert">
+            <strong>{{ session()->get('Add') }}</strong>
+        </div>
+    @endif
+
+    @if ($errors->any())
+        @foreach ($errors->all() as $error)
+            <div>{{$error}}</div>
+        @endforeach
+    @endif
+create form type
+
+
+
+<div class="container">
+        <div class="row justify-content-center">
+            <div class="row-cols-md-6">
+                <div class="card">
+                    <div class="card-body">
+                    <form action="/form-type" method="post">
+                            @csrf
+
+                            <div class="form-group">
+                                <label for="formType_name">Name</label>
+                                <input type="text" class="form-control" id="formType_name" name="formType_name"
+                                       aria-describedby="Form type" placeholder="Form type Name">
+                            </div><br>
+                            <button type="submit" class="btn btn-primary">Save</button>
+
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+@endsection

@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Models\Advanced;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 
 class AdvancedController extends Controller
@@ -11,7 +12,8 @@ class AdvancedController extends Controller
      */
     public function index()
     {
-        return view("advanced.index");
+        $advanceds = Advanced::All();
+        return view("advanced.index",compact('advanceds'));
     }
 
     /**
@@ -27,7 +29,18 @@ class AdvancedController extends Controller
      */
     public function store(Request $request)
     {
-        return "store";
+        $validator = Validator::make($request->all(), [
+            'advanced_name' => ['required', 'string', 'max:255'],
+        ]);
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+         Advanced::create([
+            'name' => $request->advanced_name,
+        ]);
+        session()->flash('Add', 'Advanced has been added successfully ');
+        return redirect()->back();
     }
 
     /**
@@ -35,7 +48,8 @@ class AdvancedController extends Controller
      */
     public function show(string $id)
     {
-        return view("advanced.show");
+        $advanced= Advanced::find($id);
+        return view("advanced.show",compact('advanced'));
     }
 
     /**
@@ -43,7 +57,8 @@ class AdvancedController extends Controller
      */
     public function edit(string $id)
     {
-        return view("basic.edit");
+        $advanced = Advanced::find($id);
+        return view("advanced.edit", compact('advanced'));
     }
 
     /**
@@ -51,7 +66,12 @@ class AdvancedController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return "update";
+        $advanced = Advanced::findOrFail($id);
+        $advanced->update([
+            'name' => $request->advanced_name,
+    ]);
+        session()->flash('Update', 'Advanced has been updated successfully ');
+        return redirect()->back();
     }
 
     /**
@@ -59,6 +79,9 @@ class AdvancedController extends Controller
      */
     public function destroy(string $id)
     {
-        return "destroy";
+        Advanced::find($id)->delete();
+
+        return redirect('/advanced')
+            ->with('delete','Advanced deleted successfully');
     }
 }

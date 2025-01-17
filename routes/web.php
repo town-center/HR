@@ -11,35 +11,19 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-Route::group(['middleware' => ['role:admin']], function () {
+
+Route::group(['middleware' => ['role:Admin']], function () {
     Route::get('/admin', [AdminController::class, 'index']);
 
-//    )->name('admin.dashboard');
-    // Other routes only accessible by admins
-});
-Auth::routes();
-
-Route::middleware(['auth'])->group(function () {
 
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 
-/////////////////////////////////   department api  //////////////////////////////////////////
+    /////////////////////////////////   user api  //////////////////////////////////////////
 
-    Route::get('/departments', [DepartmentController::class, 'index']);
-    Route::get('/departments/create', [DepartmentController::class, 'create']);
-    Route::post('/departments', [DepartmentController::class, 'store']);
-    Route::get('/departments/{id}', [DepartmentController::class, 'show']);
-    Route::get('/departments/{id}/edit', [DepartmentController::class, 'edit']);
-    Route::post('/departments/{id}', [DepartmentController::class, 'update']);
-    Route::post('/departments/{id}/delete', [DepartmentController::class, 'destroy']);
+    Route::get('/user/test', [UserController::class, 'test']);
 
-/////////////////////////////////   user api  //////////////////////////////////////////
 
     Route::get('/user', [UserController::class, 'index']);
     Route::get('/user/create', [UserController::class, 'create']);
@@ -48,6 +32,34 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/user/{id}/edit', [UserController::class, 'edit']);
     Route::post('/user/{id}', [UserController::class, 'update']);
     Route::post('/user/{id}/delete', [UserController::class, 'destroy']);
+
+
+});
+Auth::routes();
+
+Route::middleware(['auth'])->group(function () {
+
+
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/', function () {
+        return view('home');
+    });
+
+/////////////////////////////////   department api  //////////////////////////////////////////
+
+
+    Route::get('/department/test', [DepartmentController::class, 'test']);
+
+    Route::get('/department', [DepartmentController::class, 'index']);
+    Route::get('/department/create', [DepartmentController::class, 'create']);
+    Route::post('/department', [DepartmentController::class, 'store']);
+    Route::get('/department/{id}', [DepartmentController::class, 'show']);
+    Route::get('/department/{id}/edit', [DepartmentController::class, 'edit']);
+    Route::post('/department/{id}', [DepartmentController::class, 'update']);
+    Route::post('/department/{id}/delete', [DepartmentController::class, 'destroy']);
+
+
+
 
 
 /////////////////////////////////   role api  //////////////////////////////////////////

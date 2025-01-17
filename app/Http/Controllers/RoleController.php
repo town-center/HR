@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 
 class RoleController extends Controller
 {
@@ -11,7 +14,8 @@ class RoleController extends Controller
      */
     public function index()
     {
-        return view("role.index");
+        $roles=Role::all();
+        return view("role.index",compact('roles'));
     }
 
     /**
@@ -19,7 +23,8 @@ class RoleController extends Controller
      */
     public function create()
     {
-        return view("role.create");
+        $permissions = Permission::all();
+        return view("role.create",compact('permissions'));
     }
 
     /**
@@ -27,7 +32,22 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        return "store";
+        $validator = Validator::make($request->all(), [
+            'role_name' => 'required|string|max:255',
+            'role_permission' => 'required',
+        ]);
+        if($validator->fails()) {
+            return redirect()->back()->withErrors($validator);
+        }
+
+      $role=  Role::create([
+            'name' => $request->role_name,
+        ]);
+
+        $role->syncPermissions($request->input('role_permission'));
+
+        session()->flash('Add', 'Role has been added successfully ');
+        return redirect()->back();
     }
 
     /**
@@ -35,7 +55,8 @@ class RoleController extends Controller
      */
     public function show(string $id)
     {
-        return view("role.show");
+        $role=Role::find($id);
+        return view("role.show",compact('role'));
     }
 
     /**
@@ -43,7 +64,8 @@ class RoleController extends Controller
      */
     public function edit(string $id)
     {
-        return view("role.edit");
+        $role=Role::find($id);
+        return view("role.edit",compact('role'));
     }
 
     /**
@@ -51,7 +73,12 @@ class RoleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return "update";
+        $role = Role::findOrFail($id);
+        $role->update([
+            'name' => $request->role_name,
+        ]);
+        session()->flash('Update', 'Role has been updated successfully ');
+        return redirect()->back();
     }
 
     /**
@@ -59,6 +86,9 @@ class RoleController extends Controller
      */
     public function destroy(string $id)
     {
-        return "destroy";
+        Role::find($id)->delete();
+
+        return redirect('/role')
+            ->with('delete','role deleted successfully');
     }
 }
