@@ -14,8 +14,9 @@
         @endforeach
     @endif
 
-    create user
+
     <div class="container">
+        create user
         <div class="row justify-content-center">
             <div class="row-cols-md-4">
                 <div class="card">

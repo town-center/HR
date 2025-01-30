@@ -24,22 +24,24 @@ return new class extends Migration
             $table->integer('duration_vacation')->nullable();
             $table->date('start_vacation')->nullable();
             $table->date('end_vacation')->nullable();
-            $table->string('notes')->nullable();
-            $table->boolean('manager_accept')->nullable();
-            $table->boolean('security_manager_accept')->nullable();
+            $table->text('notes')->nullable();
+
             $table->time('start_hour')->default('00:00')->nullable();
             $table->time('end_hour')->default('00:00')->nullable();
             $table->date('request_date')->nullable();
             $table->date('start_work')->nullable();
             $table->double('financial_compensation')->nullable();
-            $table->string('Job_title')->nullable();
+            $table->string('job_title')->nullable();
             $table->integer('additional_hours')->nullable();
-            $table->string('justifications_assignment')->nullable();
-            $table->boolean('vice_chairman_accept')->nullable();
+            $table->string('extra_work_reason')->nullable();
+
             $table->string('advance_value')->nullable();
             $table->string('discount_value')->nullable();
-            $table->string('Entry')->nullable();
-            $table->string('exit')->nullable();
+            $table->time('entry')->nullable();
+            $table->time('exit')->nullable();
+            $table->boolean('vice_chairman_accept');
+            $table->boolean('manager_accept');
+            $table->boolean('security_manager_accept');
             $table->integer('step')->default('1');
 
             $table->unsignedBigInteger('type_id');

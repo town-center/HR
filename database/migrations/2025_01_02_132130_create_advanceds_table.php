@@ -19,8 +19,8 @@ return new class extends Migration
             $table->date('birth_date')->nullable();
             $table->string('current_address')->nullable();
             $table->set('family_situation', ['married', 'single','divorces ','widower '])->nullable();
-            $table->integer('telephone')->nullable();
-            $table->integer('mobile_phone')->nullable();
+            $table->string('telephone')->nullable();
+            $table->string('mobile_phone')->nullable();
             $table->set('military_status', ['completed', 'notCompleted','exempt'])->nullable();
             $table->date('date')->nullable();
 

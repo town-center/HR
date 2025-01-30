@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('relatives', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('phone');
+            $table->string('phone');
             $table->string('relationship');
 
             $table->unsignedBigInteger('adv_id');

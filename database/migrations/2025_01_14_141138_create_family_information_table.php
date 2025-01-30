@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('kinship');
-            $table->integer('phone');
+            $table->string('phone');
             $table->string('job');
             $table->unsignedBigInteger('adv_id');
             $table->foreign('adv_id')->references('id')->on('advanceds')->onDelete('cascade');

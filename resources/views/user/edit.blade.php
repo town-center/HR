@@ -10,8 +10,9 @@
             </div>
         </div>
     @endif
-    edit user
+
     <div class="container">
+        edit user
         <div class="row justify-content-center">
             <div class="row-cols-md-8">
                 <div class="card">

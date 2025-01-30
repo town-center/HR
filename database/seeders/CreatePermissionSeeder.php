@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Department;
+use App\Models\FormType;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -16,8 +18,6 @@ class CreatePermissionSeeder extends Seeder
 
         // $adminRole = Role::create(['name' => 'admin']);
         // $userRole = Role::create(['name' => 'user']);
-
-
 
         // Create permissions
 

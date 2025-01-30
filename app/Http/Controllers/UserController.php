@@ -77,7 +77,7 @@ class UserController extends Controller
         $user = User::find($id);
         $roles = Role::all();
         $departments=Department::all();
-//        return $departments;
+
         return view("user.edit",compact('user','roles','departments'));
     }
 
@@ -86,7 +86,6 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-
 
         $user = User::findOrFail($id);
         $user->update([

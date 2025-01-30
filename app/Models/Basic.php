@@ -9,14 +9,15 @@ class Basic extends Model
 {
     protected $guarded = [];
 
-    public function formType(): BelongsTo
+
+    public function formTypes(): BelongsTo
     {
-        return $this->belongsTo(FormType::class);
+        return $this->belongsTo(FormType::class,'type_id');
     }
 
     public function users(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class,'user_id');
     }
 
 }

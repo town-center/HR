@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    show user
+
 
 
     <div class="container">
+        show user
         <div class="row justify-content-center">
             <div class="row-cols-md-8">
                 <div class="card">

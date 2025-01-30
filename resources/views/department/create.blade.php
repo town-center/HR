@@ -7,15 +7,16 @@
             <strong>{{ session()->get('Add') }}</strong>
         </div>
     @endif
-    
+
     @if ($errors->any())
         @foreach ($errors->all() as $error)
             <div>{{$error}}</div>
         @endforeach
     @endif
 
-    create department
+
     <div class="container">
+        create department
         <div class="row justify-content-center">
             <div class="row-cols-md-6">
                 <div class="card">

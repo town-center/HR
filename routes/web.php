@@ -35,6 +35,8 @@ Route::group(['middleware' => ['role:Admin']], function () {
 
 
 });
+
+
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
@@ -75,7 +77,7 @@ Route::middleware(['auth'])->group(function () {
 /////////////////////////////////   basic report api  //////////////////////////////////////////
 
     Route::get('/basic', [BasicFormController::class, 'index']);
-    Route::get('/basic/create', [BasicFormController::class, 'create']);
+    Route::get('/basic/create/', [BasicFormController::class, 'create']);
     Route::post('/basic', [BasicFormController::class, 'store']);
     Route::get('/basic/{id}', [BasicFormController::class, 'show']);
     Route::get('/basic/{id}/edit', [BasicFormController::class, 'edit']);
@@ -92,6 +94,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/advanced/{id}/edit', [AdvancedController::class, 'edit']);
     Route::post('/advanced/{id}', [AdvancedController::class, 'update']);
     Route::post('/advanced/{id}/delete', [AdvancedController::class, 'destroy']);
+
+    Route::get('/advanced/{id}/step', [AdvancedController::class, 'stepChange']);
+
 
 
     /////////////////////////////////   advanced report api  //////////////////////////////////////////

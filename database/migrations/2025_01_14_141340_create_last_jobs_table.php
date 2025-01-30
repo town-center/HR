@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('last_jobs', function (Blueprint $table) {
             $table->id();
             $table->string('company_name');
-            $table->integer('phone');
+            $table->string('phone');
             $table->string('job');
             $table->string('place');
             $table->date('start_date');

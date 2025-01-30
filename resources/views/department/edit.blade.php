@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    edit department
+
     @if (session('Update'))
 
         <div class="row-cols-lg-2">
@@ -11,6 +11,7 @@
         </div>
     @endif
     <div class="container">
+        edit department
         <div class="row justify-content-center">
             <div class="row-cols-md-6">
                 <div class="card">

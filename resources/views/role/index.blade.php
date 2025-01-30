@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    index Role
+
 
     @if (session('Add'))
         <div class="alert alert-success " role="alert">
@@ -15,6 +15,7 @@
         </div>
     @endif
     <div class="container">
+        index Role
         <div class="row justify-content-center">
             <div class="row-cols-md-6">
                 <div class="card">
@@ -24,6 +25,7 @@
                             <tr>
                                 <th class="border-bottom-0">#</th>
                                 <th class="border-bottom-0">Role name</th>
+                                <th class="border-bottom-0">Actions</th>
 
                             </tr>
                             </thead>
@@ -35,8 +37,24 @@
                                     <td>{{$i}}</td>
                                     <td>{{$role->name}}</td>
 
-                                    <td>
+                                    <td colspan="2"  style="display: flex;">
+                                        <span class="text-muted">
+                                            <a href="advanced/{{$role->id}}" target="_blank">
+                                                <button type="button" class="btn btn-outline-primary btn-sm">Show</button>
+                                            </a>
+                                        </span>
 
+                                        <span class="badge badge-primary badge-pill">
+                                            <a href="advanced/{{$role->id}}/edit" target="_blank">
+                                                <button type="button" class="btn btn-outline-warning btn-sm">Edit</button>
+                                            </a>
+                                        </span>
+
+                                        <span class="badge badge-primary badge-pill">
+                                            <a href="advanced/{{$role->id}}/delete" target="_blank">
+                                                <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                                            </a>
+                                        </span>
                                     </td>
                                 </tr>
                             @endforeach

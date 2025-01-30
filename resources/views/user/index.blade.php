@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    index User
+
 
     @if (session('Add'))
         <div class="alert alert-success " role="alert">
@@ -15,6 +15,7 @@
         </div>
     @endif
     <div class="container">
+        index User
         <div class="row justify-content-center">
             <div class="row-cols-md-8">
                 <div class="card">
@@ -26,6 +27,7 @@
                                 <th class="border-bottom-0">User name</th>
                                 <th class="border-bottom-0">User role</th>
                                 <th class="border-bottom-0">User Department</th>
+                                <th class="border-bottom-0">Actions</th>
 
                             </tr>
                             </thead>
@@ -45,6 +47,25 @@
                                         @endif
                                     </td>
                                     <td>{{$user->department->name}}</td>
+                                    <td colspan="2"  style="display: flex;">
+                                        
+                                            <a href="advanced/{{$user->id}}" target="_blank">
+                                                <button type="button" class="btn btn-outline-primary btn-sm">Show</button>
+                                            </a>
+                                        </span>
+
+                                        <span class="badge badge-primary badge-pill">
+                                            <a href="advanced/{{$user->id}}/edit" target="_blank">
+                                                <button type="button" class="btn btn-outline-warning btn-sm">Edit</button>
+                                            </a>
+                                        </span>
+
+                                        <span class="badge badge-primary badge-pill">
+                                            <a href="advanced/{{$user->id}}/delete" target="_blank">
+                                                <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                                            </a>
+                                        </span>
+                                    </td>
                                 </tr>
                             @endforeach
                             </tbody>

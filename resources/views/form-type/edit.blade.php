@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    edit department
+
     @if (session('Update'))
 
         <div class="row-cols-lg-2">
@@ -10,9 +10,10 @@
             </div>
         </div>
     @endif
-edit form type
+
 
 <div class="container">
+    edit form type
         <div class="row justify-content-center">
             <div class="row-cols-md-6">
                 <div class="card">

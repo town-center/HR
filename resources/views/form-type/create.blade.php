@@ -13,11 +13,12 @@
             <div>{{$error}}</div>
         @endforeach
     @endif
-create form type
+
 
 
 
 <div class="container">
+    create form type
         <div class="row justify-content-center">
             <div class="row-cols-md-6">
                 <div class="card">

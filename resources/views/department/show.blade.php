@@ -1,8 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-    show department
+
     <div class="container">
+        show department
         <div class="row justify-content-center">
             <div class="row-cols-md-6">
                 <div class="card">

@@ -1,10 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-show form type
+
 
 
 <div class="container">
+    show form type
         <div class="row justify-content-center">
             <div class="row-cols-md-6">
                 <div class="card">
