@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Advanced;
+use App\Models\Department;
 use App\Models\Experiences;
 use App\Models\FamilyInformation;
 use App\Models\LastJob;
@@ -22,6 +23,7 @@ class AdvancedController extends Controller
      */
     public function index()
     {
+
         $advanceds = Advanced::All();
         return view("advanced.index", compact('advanceds'));
     }
@@ -36,11 +38,44 @@ class AdvancedController extends Controller
         return view("advanced.create", compact('formTypes', 'users'));
     }
 
+    public function createEmp()
+    {
+        $users = User::all();
+        $formTypes = FormType::all();
+
+        return view("advanced.employmentApplication.createEmploymentApplication", compact('formTypes', 'users'));
+    }
+
+    public function createSeasonalTraining()
+    {
+        $users = User::all();
+        $departments = Department::all();
+        $formTypes = FormType::all();
+        return view("advanced.requestSeasonalTraining.createRequestSeasonalTraining", compact('formTypes', 'users','departments'));
+    }
+
+    public function createExtra()
+    {
+        $users = User::all();
+        $departments = Department::all();
+        $formTypes = FormType::all();
+        return view("advanced.extra.createExtra", compact('formTypes', 'users','departments'));
+    }
+
+    public function createDirectingWork()
+    {
+        $users = User::all();
+        $departments = Department::all();
+        $formTypes = FormType::all();
+        return view("advanced.directingWorkEmployee.createDirectingWorkEmployee", compact('formTypes', 'users','departments'));
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
+
 
         $validator = Validator::make($request->all(), [
             'type_id' => 'required|integer',
@@ -66,6 +101,8 @@ class AdvancedController extends Controller
             'salary' => 'numeric|nullable',
             'notes' => 'string|nullable',
             'recommendation' => 'string|nullable',
+
+
             'fname' => 'string|nullable',
             'kinship' => 'string|nullable',
             'fphone' => 'regex:/^09[0-9]{8}$/|nullable',
@@ -83,12 +120,19 @@ class AdvancedController extends Controller
             'start_date' => 'date|nullable',
             'end_date' => 'date|nullable',
             'reason_leaving' => 'string|nullable',
+
+
             'name' => 'string|nullable',
             'relationship' => 'string|nullable',
+
             'rUserId' => 'integer|nullable',
             'signature' => 'string|nullable',
             'recoUserId' => 'integer|nullable',
         ]);
+
+
+//        return $request;
+
 
         if ($validator->fails()) {
             return redirect()->back()->withErrors($validator);
@@ -96,6 +140,8 @@ class AdvancedController extends Controller
 
         if ($request->signature != 'true') $signature = '0';
         else $signature = '1';
+
+
         try {
         Advanced::create([
             'type_id' => $request->type_id,
@@ -107,8 +153,11 @@ class AdvancedController extends Controller
             'family_situation' => $request->family_situation,
             'telephone' => $request->telephone,
             'mobile_phone' => $request->mobile_phone,
-            'military_status' => $request->military_status,
+            'military_status' => $request->military_status,//EmpApplication
+
             'date' => $request->date,
+
+
             'department_id' => Auth::user()->department->id,
             'job_title' => $request->job_title,
             'hourly_wage' => $request->hourly_wage,
@@ -129,9 +178,26 @@ class AdvancedController extends Controller
 
             return false;
         }
+        $adv = Advanced::latest()->first()->id;
 
         try {
-        $adv = Advanced::latest()->first()->id;
+            Recommendation::create([
+                'signature' => $signature,
+                'phone' => $request->recoPhone,
+                'adv_id' => $adv,
+                'user_id' => $request->recoUserId,
+            ]);
+        } catch (Throwable $e) {
+            report($e);
+
+            return false;
+        }
+
+
+
+
+        try {
+
 
         FamilyInformation::create([
             'name' => $request->fname,
@@ -145,6 +211,9 @@ class AdvancedController extends Controller
 
             return false;
         }
+
+
+
         try {
         Experiences::create([
             'academic_qualification' => $request->academic_qualification,
@@ -157,6 +226,8 @@ class AdvancedController extends Controller
 
             return false;
         }
+
+
 
             try {
         LastJob::create([
@@ -176,6 +247,8 @@ class AdvancedController extends Controller
                 return false;
             }
 
+
+
                 try {
         Relatives::create([
             'name' => $request->name,
@@ -190,18 +263,7 @@ class AdvancedController extends Controller
                     return false;
                 }
 
-                    try {
-        Recommendation::create([
-            'signature' => $signature,
-            'phone' => $request->recoPhone,
-            'adv_id' => $adv,
-            'user_id' => $request->recoUserId,
-        ]);
-                    } catch (Throwable $e) {
-                        report($e);
 
-                        return false;
-                    }
 
         session()->flash('Add', 'Advanced has been added successfully ');
 

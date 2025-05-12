@@ -20,4 +20,9 @@ class Basic extends Model
         return $this->belongsTo(User::class,'user_id');
     }
 
+    public function employee(): BelongsTo
+    {
+        return $this->belongsTo(User::class,'emp_id');
+    }
+
 }

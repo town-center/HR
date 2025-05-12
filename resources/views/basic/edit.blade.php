@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 
@@ -16,19 +16,24 @@
             <div>{{$error}}</div>
         @endforeach
     @endif
-edit basic
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="row-cols-md-10">
-                <div class="card">
+
+    <div class="col-xl-12" style="margin: 10px">
+
+        <div class="row-cols-md-6">
+            <div class="card">
+                <div class="card-header pb-0">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="card-title mg-b-0"> edit basic</h4>
+                    </div>
+                </div>
                     <div class="card-body">
 
                     <form action="/basic/{{$basic->id}}" method="post">
                             @csrf
 
 
-                        <select class="form-select" aria-label="Default select example" name="type_id"
+                        <select class="form-control" aria-label="Default select example" name="type_id"
                                 id="type_id" required>
                             <option >اختر نوع الطلب</option>
                             @foreach($formTypes as $formType)
@@ -229,12 +234,16 @@ edit basic
 
                         </div>
                         <br>
-                        <button type="submit" class="btn btn-primary">update</button>
+                        <div style="width: 200px; margin-right: 40%">
+
+                            <button type="submit" class="btn btn-outline-primary btn-block">Update</button>
+
+                        </div>
 
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
 @endsection

@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 
@@ -14,12 +14,14 @@
             <strong>{{ session()->get('delete') }}</strong>
         </div>
     @endif
-    <div class="container">
-        index department
-        <div class="row justify-content-center">
-            <div class="row-cols-md-auto">
-                <div class="card">
-                    <div class="card-body">
+    <div class="col-xl-12" style="margin: 10px">
+        <div class="card">
+            <div class="card-header pb-0">
+                <div class="d-flex justify-content-between">
+                    <h4 class="card-title mg-b-0">Index Department</h4>
+                </div>
+            </div>
+                <div class="card-body">
                         <table class="table  ">
                             <thead>
                             <tr>
@@ -37,21 +39,21 @@
                                     <td>{{$i}}</td>
                                     <td>{{$department->name}}</td>
 
-                                    <td colspan="2"  style="display: flex;">
+                                    <td colspan="2"  style="display: flex; ">
 
-                                            <a href="advanced/{{$department->id}}" target="_blank">
-                                                <button type="button" class="btn btn-outline-primary btn-sm">Show</button>
+                                            <a href="department/{{$department->id}}" target="_blank">
+                                                <button class="btn btn-outline-primary btn-block">Show</button>
                                             </a>
 
-
-                                            <a href="advanced/{{$department->id}}/edit" target="_blank">
-                                                <button type="button" class="btn btn-outline-warning btn-sm">Edit</button>
+                                        &nbsp
+                                            <a href="department/{{$department->id}}/edit" target="_blank">
+                                                <button class="btn btn-outline-warning btn-block">Edit</button>
                                             </a>
 
+                                        &nbsp
 
-
-                                            <a href="advanced/{{$department->id}}/delete" target="_blank">
-                                                <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                                            <a href="department/{{$department->id}}/delete" target="_blank">
+                                                <button class="btn btn-outline-danger btn-block">Delete</button>
                                             </a>
 
                                     </td>
@@ -62,7 +64,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+
 
 @endsection

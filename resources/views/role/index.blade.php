@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 
@@ -14,11 +14,13 @@
             <strong>{{ session()->get('delete') }}</strong>
         </div>
     @endif
-    <div class="container">
-        index Role
-        <div class="row justify-content-center">
-            <div class="row-cols-md-6">
-                <div class="card">
+    <div class="col-xl-12" style="margin: 10px">
+        <div class="card">
+            <div class="card-header pb-0">
+                <div class="d-flex justify-content-between">
+                    <h4 class="card-title mg-b-0">Index Role</h4>
+                </div>
+            </div>
                     <div class="card-body">
                         <table class="table  ">
                             <thead>
@@ -38,23 +40,23 @@
                                     <td>{{$role->name}}</td>
 
                                     <td colspan="2"  style="display: flex;">
-                                        <span class="text-muted">
-                                            <a href="advanced/{{$role->id}}" target="_blank">
-                                                <button type="button" class="btn btn-outline-primary btn-sm">Show</button>
-                                            </a>
-                                        </span>
 
-                                        <span class="badge badge-primary badge-pill">
-                                            <a href="advanced/{{$role->id}}/edit" target="_blank">
-                                                <button type="button" class="btn btn-outline-warning btn-sm">Edit</button>
+                                            <a href="role/{{$role->id}}" target="_blank">
+                                                <button class="btn btn-outline-primary btn-block">Show</button>
                                             </a>
-                                        </span>
 
-                                        <span class="badge badge-primary badge-pill">
+
+                                        &nbsp
+                                            <a href="role/{{$role->id}}/edit" target="_blank">
+                                                <button class="btn btn-outline-warning btn-block">Edit</button>
+                                            </a>
+
+
+                                        &nbsp
                                             <a href="advanced/{{$role->id}}/delete" target="_blank">
-                                                <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                                               <button class="btn btn-outline-danger btn-block">Delete</button>
                                             </a>
-                                        </span>
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -64,5 +66,4 @@
                 </div>
             </div>
         </div>
-    </div>
 @endsection

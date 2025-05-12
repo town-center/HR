@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Models\Basic;
+use App\Models\Department;
 use App\Models\FormType;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
@@ -16,6 +19,8 @@ class BasicFormController extends Controller
     public function index()
     {
         $basics = Basic::all();
+
+
         return view("basic.index", compact('basics'));
     }
 
@@ -30,12 +35,101 @@ class BasicFormController extends Controller
 
     }
 
+    public function createAdminLeave()
+    {
+
+        $formTypes = FormType::all();
+        return view("basic.createAdministrativeLeave", compact('formTypes'));
+
+    }
+
+    public function createHourlyLeave()
+    {
+
+        $formTypes = FormType::all();
+        return view("basic.createHourlyLeave", compact('formTypes'));
+
+    }
+
+    public function permissionChange()
+    {
+
+        $formTypes = FormType::all();
+        return view("basic.createPermissionChange", compact('formTypes'));
+
+    }
+
+    public function noticeDismissal()
+    {
+        $users = User::where('department_id',Auth::user()->department->id)->get();
+        $formTypes = FormType::all();
+        return view("basic.createNoticeDismissal", compact('formTypes','users'));
+
+    }
+
+    public function additionalAssignment()
+    {
+        $users = User::where('department_id',Auth::user()->department->id)->get();
+        $formTypes = FormType::all();
+        return view("basic.createAdditionalAssignment", compact('formTypes','users'));
+
+    }
+
+    public function workWithoutFingerprint()
+    {
+        $users = User::all();
+        $departments = Department::all();
+        $formTypes = FormType::all();
+        return view("basic.createWorkWithoutFingerprint", compact('formTypes','users','departments'));
+
+    }
+
+    public function overtimeHours()
+    {
+
+        $formTypes = FormType::all();
+        return view("basic.createOvertimehours", compact('formTypes'));
+
+    }
+
+    public function requestFinancialAdvance()
+    {
+
+        $formTypes = FormType::all();
+        return view("basic.createRequestFinancialAdvance", compact('formTypes'));
+
+    }
+
+    public function transferRequest()
+    {
+
+        $formTypes = FormType::all();
+        return view("basic.createTransferRequest", compact('formTypes'));
+
+    }
+
+    public function financialPunishment()
+    {
+        $users=User::all();
+        $formTypes = FormType::all();
+        return view("basic.createFinancialPunishment", compact('formTypes','users'));
+
+    }
+
+    public function externalTask()
+    {
+        $users=User::all();
+        $formTypes = FormType::all();
+        return view("basic.createExternalTask", compact('formTypes','users'));
+
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-          //  return $request;
+
 
 
         $validator = Validator::make($request->all(), [
@@ -48,6 +142,8 @@ class BasicFormController extends Controller
             'start_hour' => 'date_format:H:i|nullable',
             'end_hour' => 'date_format:H:i|nullable',
             'request_date' => 'date|nullable',
+            'emp' => 'integer|nullable',
+
             'start_work' => 'date|nullable',
             'financial_compensation' => 'numeric|nullable',
             'job_title' => 'string|nullable',
@@ -92,6 +188,7 @@ class BasicFormController extends Controller
             'start_vacation' => $request->start_vacation,
             'end_vacation' => $request->end_vacation,
             'notes' => $request->notes,
+            'emp_id'=> $request->emp,
 
             'start_hour' => $request->start_hour,
             'end_hour' => $request->end_hour,
@@ -233,5 +330,29 @@ class BasicFormController extends Controller
 
         return redirect('/basic')
             ->with('delete', 'Basic deleted successfully');
+    }
+
+    public function stepChange(string $id)
+    {
+        $roles =User::where('id',Auth::id())->first();
+        foreach ($roles->getRoleNames() as $role){
+            $role;
+            break;
+        }
+
+        if ($role == 'Manager'){
+            Basic::where('id',$id)->update([
+                'step'=> 2
+            ]);
+        }
+
+        if ($role == "Admin"){
+            Basic::where('id',$id)->update([
+                'step'=> 3
+            ]);
+        }
+
+        return redirect('/basic')
+            ->with('Accepted', 'Basic request accepted');
     }
 }

@@ -1,14 +1,24 @@
-@extends('layouts.app')
+@extends('layouts.master')
+
+@section('title')
+   <title> Show Basic</title>
+@endsection
 
 @section('content')
-show basic
 
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="row-cols-md-8">
-                <div class="card">
-                    <div class="card-body">
+
+<div class="col-xl-12" style="margin: 10px">
+    <div class="card">
+        <div class="card-header pb-0">
+            <div class="d-flex justify-content-between">
+                <h4 class="card-title mg-b-0">show basic</h4>
+            </div>
+
+        </div>
+
+        <div class="card-body">
+            <div class="table-responsive">
                         <table id="" class="table">
                             <thead>
                             <tr>
@@ -64,16 +74,26 @@ show basic
                             </tbody>
                         </table>
 
+                <div style=" display: flex; justify-content: center; margin: 10px">
+
+                    <form action="/basic/{{$basic->id}}/step">
+                        <div style="width: 200px">
+                            <button type="submit" class="btn btn-info">Accept</button>
+                        </div>
+                    </form>
+
                         <form action="/basic/{{ $basic->id }}/delete" method="post">
                             @csrf
-                            <button type="submit">delete</button>
+                            <div style="width: 200px; margin-right: 40% ; margin-bottom: 10px">
+                                <button type="submit" class="btn btn-outline-danger btn-block">Delete</button>
+                            </div>
                         </form>
-
+                </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
 
 
 @endsection

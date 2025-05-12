@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 
@@ -16,15 +16,20 @@
 
 
 
-    <div class="container">
-        create basic
-        <div class="row justify-content-center">
-            <div class="row-cols-md-4">
-                <div class="card">
+    <div class="col-xl-12" style="margin: 10px">
+
+        <div class="row-cols-md-6">
+            <div class="card">
+                <div class="card-header pb-0">
+                    <div class="d-flex justify-content-between">
+                        <h4 class="card-title mg-b-0"> Create basic</h4>
+                    </div>
+                </div>
                     <div class="card-body">
                         <form action="/basic" method="post">
                             @csrf
-                            <select class="form-select" aria-label="Default select example" name="type_id"
+
+                            <select class="form-control" aria-label="Default select example" name="type_id"
                                     id="type_id" required>
                                 <option selected>اختر نوع الطلب</option>
                                 @foreach($formTypes as $formType)
@@ -32,6 +37,7 @@
                                 @endforeach
 
                             </select>
+
                             <br>
 
                             <div class="form-group">
@@ -185,10 +191,9 @@
 
                             </div>
                             <br>
-
-                            <button type="submit" class="btn btn-primary">Save</button>
-
-
+                            <div style="width: 200px; margin-right: 40%">
+                                <button type="submit" class="btn btn-outline-primary btn-block">Save</button>
+                            </div>
                         </form>
 
                     </div>

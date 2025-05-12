@@ -26,6 +26,9 @@ return new class extends Migration
             $table->date('end_vacation')->nullable();
             $table->text('notes')->nullable();
 
+            $table->unsignedBigInteger('emp_id');
+            $table->foreign('emp_id')->references('id')->on('users')->onDelete('cascade');
+
             $table->time('start_hour')->default('00:00')->nullable();
             $table->time('end_hour')->default('00:00')->nullable();
             $table->date('request_date')->nullable();

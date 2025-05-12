@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 
@@ -8,6 +8,7 @@
         </div>
     @endif
 
+
     @if ($errors->any())
         @foreach ($errors->all() as $error)
             <div>{{$error}}</div>
@@ -15,12 +16,14 @@
     @endif
 
 
-    <div class="container">
-        create user
-        <div class="row justify-content-center">
-            <div class="row-cols-md-4">
-                <div class="card">
-                    <div class="card-body">
+    <div class="col-xl-12" style="margin: 10px">
+        <div class="card">
+            <div class="card-header pb-0">
+                <div class="d-flex justify-content-between">
+                    <h4 class="card-title mg-b-0">Create User</h4>
+                </div>
+            </div>
+                <div class="card-body">
                         <form action="/user" method="post">
                             @csrf
 
@@ -86,15 +89,14 @@
 
                             <br>
 
-
-                            <button type="submit" class="btn btn-primary">Save</button>
-
-
+                            <div style="width: 200px; margin-right: 40%">
+                            <button class="btn btn-outline-primary btn-block">Save</button>
+                            </div>
                         </form>
 
                     </div>
                 </div>
             </div>
-        </div>
+
 
 @endsection

@@ -25,59 +25,60 @@ class CreatePermissionSeeder extends Seeder
         // $viewPermission = Permission::create(['name' => 'view articles']);
 
 
-
         $permissions = [
 
-        //////////////////// User Permission ////////////////////
-        'create user',
-        'view user',
-        'edit user',
-        'delete user',
+            //////////////////// User Permission ////////////////////
+            'create user',
+            'view user',
+            'edit user',
+            'delete user',
 
 
+            //////////////////// Role Permission ////////////////////
+            'create role',
+            'view role',
+            'edit role',
+            'delete role',
 
 
-        //////////////////// Role Permission ////////////////////
-        'create role',
-        'view role',
-        'edit role',
-        'delete role',
+            //////////////////// Department Permission ////////////////////
+            'create department',
+            'view department',
+            'edit department',
+            'delete department',
 
 
-        //////////////////// Department Permission ////////////////////
-        'create department',
-        'view department',
-        'edit department',
-        'delete department',
+            //////////////////// Advanced Permission ////////////////////
+            'create advanced',
+            'view advanced',
+            'edit advanced',
+            'delete advanced',
 
 
-        //////////////////// Advanced Permission ////////////////////
-        'create advanced',
-        'view advanced',
-        'edit advanced',
-        'delete advanced',
+            //////////////////// Basic Permission ////////////////////
+            'create basic',
+            'view basic',
+            'edit basic',
+            'delete basic',
 
 
-        //////////////////// Basic Permission ////////////////////
-        'create basic',
-        'view basic',
-        'edit basic',
-        'delete basic',
+            //////////////////// Form Type Permission ////////////////////
+            'create formType',
+            'view formType',
+            'edit formType',
+            'delete formType',
 
 
-        //////////////////// Form Type Permission ////////////////////
-        'create formType',
-        'view formType',
-        'edit formType',
-        'delete formType',
-
+            //////////////////// Accept Permission ////////////////////
+            'manager accept',
+            'Vice Chairman accept',
+            'Security Manager accept'
 
         ];
 
         foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);
         }
-
 
 
         // Assign permissions to roles

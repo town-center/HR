@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 
@@ -14,11 +14,13 @@
             <strong>{{ session()->get('delete') }}</strong>
         </div>
     @endif
-    <div class="container">
-        index User
-        <div class="row justify-content-center">
-            <div class="row-cols-md-8">
-                <div class="card">
+    <div class="col-xl-12" style="margin: 10px">
+        <div class="card">
+            <div class="card-header pb-0">
+                <div class="d-flex justify-content-between">
+                    <h4 class="card-title mg-b-0">index user</h4>
+                </div>
+            </div>
                     <div class="card-body">
                         <table class="table  ">
                             <thead>
@@ -48,23 +50,23 @@
                                     </td>
                                     <td>{{$user->department->name}}</td>
                                     <td colspan="2"  style="display: flex;">
-                                        
-                                            <a href="advanced/{{$user->id}}" target="_blank">
-                                                <button type="button" class="btn btn-outline-primary btn-sm">Show</button>
-                                            </a>
-                                        </span>
 
-                                        <span class="badge badge-primary badge-pill">
-                                            <a href="advanced/{{$user->id}}/edit" target="_blank">
-                                                <button type="button" class="btn btn-outline-warning btn-sm">Edit</button>
+                                            <a href="user/{{$user->id}}" target="_blank">
+                                                <button class="btn btn-outline-primary btn-block">Show</button>
                                             </a>
-                                        </span>
 
-                                        <span class="badge badge-primary badge-pill">
-                                            <a href="advanced/{{$user->id}}/delete" target="_blank">
-                                                <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+
+                                        &nbsp
+                                            <a href="user/{{$user->id}}/edit" target="_blank">
+                                                <button class="btn btn-outline-warning btn-block">Edit</button>
                                             </a>
-                                        </span>
+
+                                        &nbsp
+
+                                            <a href="user/{{$user->id}}/delete" target="_blank">
+                                              <button class="btn btn-outline-danger btn-block">Delete</button>
+                                            </a>
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -73,8 +75,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+
 
 @endsection
 

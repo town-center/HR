@@ -1,14 +1,16 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 
 
 
-    <div class="container">
-        show user
-        <div class="row justify-content-center">
-            <div class="row-cols-md-8">
-                <div class="card">
+    <div class="col-xl-12" style="margin: 10px">
+        <div class="card">
+            <div class="card-header pb-0">
+                <div class="d-flex justify-content-between">
+                    <h4 class="card-title mg-b-0">show user</h4>
+                </div>
+            </div>
                     <div class="card-body">
                         <table id="" class="table">
                             <thead>
@@ -36,16 +38,17 @@
                             </tr>
                             </tbody>
                         </table>
-
+                        <hr>
                         <form action="/user/{{$user->id}}/delete" method="post">
                             @csrf
-                            <button type="submit">delete</button>
-
+                            <div style="width: 200px; margin-right: 40%">
+                            <button class="btn btn-outline-danger btn-block">Delete</button>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+
 
 @endsection

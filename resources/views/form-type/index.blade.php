@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 
@@ -17,11 +17,13 @@
 
 
 
-<div class="container">
-    index form type
-        <div class="row justify-content-center">
-            <div class="row-cols-md-6">
-                <div class="card">
+    <div class="col-xl-12" style="margin: 10px">
+        <div class="card">
+            <div class="card-header pb-0">
+                <div class="d-flex justify-content-between">
+                    <h4 class="card-title mg-b-0">index form type</h4>
+                </div>
+            </div>
                     <div class="card-body">
                         <table class="table  ">
                             <thead>
@@ -41,23 +43,24 @@
                                     <td>{{$formType->name}}</td>
 
                                     <td colspan="2"  style="display: flex;">
-                                        <span class="text-muted">
-                                            <a href="advanced/{{$formType->id}}" target="_blank">
-                                                <button type="button" class="btn btn-outline-primary btn-sm">Show</button>
-                                            </a>
-                                        </span>
 
-                                        <span class="badge badge-primary badge-pill">
-                                            <a href="advanced/{{$formType->id}}/edit" target="_blank">
-                                                <button type="button" class="btn btn-outline-warning btn-sm">Edit</button>
+                                            <a href="form-type/{{$formType->id}}" target="_blank">
+                                                <button class="btn btn-outline-primary btn-block">Show</button>
                                             </a>
-                                        </span>
 
-                                        <span class="badge badge-primary badge-pill">
-                                            <a href="advanced/{{$formType->id}}/delete" target="_blank">
-                                                <button type="button" class="btn btn-outline-danger btn-sm">Delete</button>
+                                        &nbsp
+
+                                            <a href="form-type/{{$formType->id}}/edit" target="_blank">
+                                                <button class="btn btn-outline-warning btn-block">Edit</button>
                                             </a>
-                                        </span>
+
+                                        &nbsp
+
+
+                                            <a href="form-type/{{$formType->id}}/delete" target="_blank">
+                                              <button class="btn btn-outline-danger btn-block">Delete</button>
+                                            </a>
+
                                     </td>
                                 </tr>
                             @endforeach
@@ -66,8 +69,8 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+
+
 
 @endsection
 

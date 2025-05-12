@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 
@@ -14,18 +14,21 @@
         @endforeach
     @endif
 
-create advanced
 
 
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="row-cols-md-6">
-                <div class="card">
-                    <div class="card-body">
+
+    <div class="col-xl-12" style="margin: 10px">
+        <div class="card">
+            <div class="card-header pb-0">
+                <div class="d-flex justify-content-between">
+                    <h4 class="card-title mg-b-0">create advanced</h4>
+                </div>
+            </div>
+                <div class="card-body">
                     <form action="/advanced" method="post">
                             @csrf
-
-                        <select class="form-select" aria-label="Default select example" name="type_id"
+                        <label for="type_id)">اختر نوع الطلب</label>
+                        <select class="form-control" aria-label="Default select example" name="type_id"
                                 id="type_id" required>
                             <option selected>اختر نوع الطلب</option>
                             @foreach($formTypes as $formType)
@@ -76,7 +79,7 @@ create advanced
                         <br>
                         <div class="form-group">
                             <label for="family_situation">Family Situation</label>
-                            <select class="form-select" id="family_situation" name="family_situation" >
+                            <select class="form-control" id="family_situation" name="family_situation" >
                                 <option value="">اختر الوضع العائلي</option>
                                 <option value="married">married</option>
                                 <option value="single">single</option>
@@ -88,7 +91,7 @@ create advanced
 
                         <div class="form-group">
                             <label for="military_status">Military Situation</label>
-                            <select class="form-select" id="military_status" name="military_status" >
+                            <select class="form-control" id="military_status" name="military_status" >
                                 <option value="">اختر وضع التجنيد</option>
                                 <option value="completed">completed</option>
                                 <option value="notCompleted">notCompleted</option>
@@ -353,7 +356,7 @@ create advanced
                         </div>
                         <br>
 
-                        <select class="form-select" aria-label="Default select example" name="rUserId"
+                        <select class="form-control" aria-label="Default select example" name="rUserId"
                                 id="rUserId" required>
                             <option selected>اختر المستخدم</option>
                             @foreach($users as $user)
@@ -378,7 +381,7 @@ create advanced
                         </div>
                         <br>
 
-                        <select class="form-select" aria-label="Default select example" name="recoUserId"
+                        <select class="form-control" aria-label="Default select example" name="recoUserId"
                                 id="recoUserId" required>
                             <option selected>اختر المستخدم</option>
                             @foreach($users as $user)
@@ -388,7 +391,9 @@ create advanced
                         <br>
 
 
-                            <button type="submit" class="btn btn-primary">Save</button>
+                        <div style="width: 200px; margin-right: 40%">
+                            <button type="submit" class="btn btn-outline-primary btn-block">Save</button>
+                        </div>
 
 
                         </form>
@@ -396,6 +401,6 @@ create advanced
                     </div>
                 </div>
             </div>
-        </div>
+
 @endsection
 

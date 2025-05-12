@@ -12,13 +12,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 
+Auth::routes();
 
-Route::group(['middleware' => ['role:Admin']], function () {
+Route::group(['middleware' => ['role:Admin','auth']], function () {
     Route::get('/admin', [AdminController::class, 'index']);
-
-
-
-
 
     /////////////////////////////////   user api  //////////////////////////////////////////
 
@@ -37,15 +34,29 @@ Route::group(['middleware' => ['role:Admin']], function () {
 });
 
 
-Auth::routes();
+
 
 Route::middleware(['auth'])->group(function () {
 
 
-    Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/', function () {
-        return view('home');
+    Route::get('/test', function () {
+        return view('temp.dropdown');
     });
+
+
+
+    Route::get('/index', function () {
+        return view('index');
+    });
+
+
+
+    Route::get('/', function () {
+        return view('index');
+    });
+
+
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
 /////////////////////////////////   department api  //////////////////////////////////////////
 
@@ -77,18 +88,41 @@ Route::middleware(['auth'])->group(function () {
 /////////////////////////////////   basic report api  //////////////////////////////////////////
 
     Route::get('/basic', [BasicFormController::class, 'index']);
-    Route::get('/basic/create/', [BasicFormController::class, 'create']);
+
+
+    Route::get('/basic/create', [BasicFormController::class, 'create']);
+
+    Route::get('/basic/create-administrative-leave', [BasicFormController::class, 'createAdminLeave']);
+    Route::get('/basic/create-hourly-leave', [BasicFormController::class, 'createHourlyLeave']);
+    Route::get('/basic/permission-change', [BasicFormController::class, 'permissionChange']);
+    Route::get('/basic/notice-dismissal', [BasicFormController::class, 'noticeDismissal']);
+    Route::get('/basic/additional-assignment', [BasicFormController::class, 'additionalAssignment']);
+    Route::get('/basic/work-without-fingerprint', [BasicFormController::class, 'workWithoutFingerprint']);
+    Route::get('/basic/overtime-hours', [BasicFormController::class, 'overtimeHours']);
+    Route::get('/basic/request-financial-advance', [BasicFormController::class, 'requestFinancialAdvance']);
+    Route::get('/basic/transfer-request', [BasicFormController::class, 'transferRequest']);
+    Route::get('/basic/financial-punishment', [BasicFormController::class, 'financialPunishment']);
+    Route::get('/basic/external-task', [BasicFormController::class, 'externalTask']);
+
     Route::post('/basic', [BasicFormController::class, 'store']);
     Route::get('/basic/{id}', [BasicFormController::class, 'show']);
     Route::get('/basic/{id}/edit', [BasicFormController::class, 'edit']);
     Route::post('/basic/{id}', [BasicFormController::class, 'update']);
     Route::post('/basic/{id}/delete', [BasicFormController::class, 'destroy']);
 
+    Route::get('/basic/{id}/step', [BasicFormController::class, 'stepChange']);
+
 
 /////////////////////////////////   advanced report api  //////////////////////////////////////////
 
     Route::get('/advanced', [AdvancedController::class, 'index']);
     Route::get('/advanced/create', [AdvancedController::class, 'create']);
+    Route::get('/advanced/createEmployment', [AdvancedController::class, 'createEmp']);
+    Route::get('/advanced/createSeasonalTraining', [AdvancedController::class, 'createSeasonalTraining']);
+    Route::get('/advanced/createExtra', [AdvancedController::class, 'createExtra']);
+    Route::get('/advanced/directingWork', [AdvancedController::class, 'createDirectingWork']);
+
+
     Route::post('/advanced', [AdvancedController::class, 'store']);
     Route::get('/advanced/{id}', [AdvancedController::class, 'show']);
     Route::get('/advanced/{id}/edit', [AdvancedController::class, 'edit']);
@@ -99,7 +133,7 @@ Route::middleware(['auth'])->group(function () {
 
 
 
-    /////////////////////////////////   advanced report api  //////////////////////////////////////////
+    /////////////////////////////////   form type api  //////////////////////////////////////////
 
     Route::get('/form-type', [FormTypeController::class, 'index']);
     Route::get('/form-type/create', [FormTypeController::class, 'create']);

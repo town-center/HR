@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.master')
 
 @section('content')
 
@@ -10,11 +10,13 @@
             </div>
         </div>
     @endif
-    <div class="container">
-        edit department
-        <div class="row justify-content-center">
-            <div class="row-cols-md-6">
-                <div class="card">
+    <div class="col-xl-12" style="margin: 10px">
+        <div class="card">
+            <div class="card-header pb-0">
+                <div class="d-flex justify-content-between">
+                    <h4 class="card-title mg-b-0">Edit Department</h4>
+                </div>
+            </div>
                     <div class="card-body">
                         <form action="/department/{{$department->id}}" method="post">
                             @csrf
@@ -27,17 +29,16 @@
 
                             <br>
 
-                            <div class="row mb-0">
-                                <div class="col-md-8 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">update</button>
-                                </div>
-                            </div>
+                            <div style="width: 200px; margin-right: 40%">
 
+                                <button class="btn btn-outline-primary btn-block">Update</button>
+
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
+
+
 @endsection
 
